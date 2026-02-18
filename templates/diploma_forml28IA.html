@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diploma di Laurea (Nuovo Formato)</title>
+    <style>
+        /* [OMISSIS: FONT-FACES E @PAGE INVARIATI] */
+        /* Mantieni gli @font-face e lo stile @page (A3 portrait) dal tuo template originale */
+        @font-face {
+            font-family: 'Sapienza';
+            src: url('/static/font//Sapienza/Sapienza-RegularSC.otf') format('opentype');
+            font-weight: normal; 
+        }
+
+        @font-face {
+            font-family: 'Sapienza';
+            src: url('/static/font/Sapienza/Sapienza-BoldSC.otf') format('opentype');
+            font-weight: bold; 
+        }
+
+        @font-face {
+            font-family: 'open-sans';
+            src: url('/static/font/open-sans/OpenSans-Regular.ttf') format('truetype');
+            font-weight: regular; 
+        }
+        @font-face {
+            font-family: 'open-sans';
+            src: url('/static/font/open-sans/OpenSans-Bold.ttf') format('truetype');
+            font-weight: bold; 
+        }
+        @page {
+            size: A3 portrait; /* Formato A3 verticale */
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Sapienza', serif;
+            font-variant: small-caps;
+            margin: 0;
+            padding: 0;
+            width: 297mm; /* Larghezza A3 */
+            height: 420mm; /* Altezza A3 */
+            position: relative;
+            overflow: hidden;
+            color: #333;
+            box-sizing: border-box;
+            line-height: 1.3;
+        }
+        .testi {
+            position: absolute; /* Permette il posizionamento degli elementi figli */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin-left: 10mm;
+        }
+
+        /* --- NUOVA AREA LOGHI --- */
+        .logo-area {
+            position: absolute;
+            top: 20mm; /* Calibra l'altezza dall'alto */
+            left: 25mm; 
+            width: 80mm; /* Larghezza dell'area loghi a sinistra */
+            display: flex;
+            flex-direction: row; /* Loghi impilati orizzontalmente */
+            align-items: center;
+            margin-left: 250px;
+        }
+        .logo-img {
+            max-width: 90px; /* Dimensione massima del logo */
+            height: auto;
+            margin-bottom: 10mm; /* Spazio tra i loghi */
+            margin: 5px;
+            display: -webkit-box;
+        }
+        /* --- AREA PRINCIPALE TESTUALE (Spostata per i loghi) --- */
+        .content-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* DA CALIBRARE: Aumentiamo il padding-left per fare spazio ai loghi a sinistra */
+            padding: 20mm 25mm 20mm 95mm; 
+            box-sizing: border-box;
+            text-align: left;
+            color: #333;
+            line-height: 1.3;
+        }
+        
+        /* [OMISSIS: STILI HEADER E CAMPI DOTTORANDO INVARIATI] */
+        .header-repubblica { font-size: 30pt; color: #822433; margin-bottom: 40mm; margin-top: 30mm;letter-spacing:0.7px;}
+        .header-text { font-size: 27pt; margin-bottom: 3mm; margin-top: 3mm; letter-spacing:0.7px; }
+        .header-sapienza { font-size: 27pt; color: #822433; margin-top: 3mm; margin-bottom: 3mm; letter-spacing:0.7px;}
+        .header-conferisce { font-size: 27pt; margin-top: 3mm; letter-spacing:0.7px;}
+        .corso-laurea { font-size: 27pt; font-weight: bold; line-height: 1.5; margin-top: 20mm; margin-bottom: 3mm; letter-spacing:0.7px;}
+        .con-lode { font-size: 16pt; font-weight: bold; color: #8B4513; margin-top: 5mm; letter-spacing:0.7px;}
+        .nome-studente { font-size: 30pt; font-weight: bold; color: #822433; margin-top: 10mm; margin-bottom: 5mm; letter-spacing:0.7px;}
+        .nome-studente .intro-nome { font-size: 20pt; color: #000000; margin-top: 10mm; margin-bottom: 5mm; letter-spacing:0.7px;}
+        .dettagli-nascita { font-size: 12pt; margin-bottom: 30mm; font-family: 'open-sans', sans-serif; letter-spacing:0.7px;}
+        
+        /* --- NUOVA AREA FIRME (6 FIRME) --- margin-bottom: 5mm; */
+        .signature-area {
+            position: absolute;
+            width: 80%;
+            left: 68%;
+            transform: translateX(-50%);
+            bottom: 50mm; /* Distanza dal fondo della pagina A3 */
+            display: flex;
+            justify-content: center; /* Centra orizzontalmente i due blocchi colonna */
+            font-size: 12pt;
+            /*border: 2px solid black;*/
+        }
+        .signature-column {
+            display: flex;
+            flex-direction: column; /* Elementi verticali */
+            width: 50%; /* Ogni colonna occupa metà dell'area */
+            padding: 0 10mm;
+            /*border: 2px solid blue;*/
+        }
+        .signature-block {
+            margin-bottom: 25mm; /* Spazio tra i blocchi firma verticali */
+            text-align: left;
+        }
+        .signature-title {
+            margin-bottom: 5mm;
+            text-align: left;
+            font-size: 15pt;
+            letter-spacing:0.7px;
+        }
+        .signature-line {
+            width: 100px;
+            height: 1px;
+            /*background-color: black;*/
+            margin-bottom: 10mm;
+        }
+        .firma-img {
+            width: 300px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            margin-top: -60px; /* Distanza tra titolo e immagine firma */
+            margin-bottom: 5px;
+            margin-left: 0px;
+            z-index: 1;
+        }
+
+        /* [OMISSIS: BLOCCO DETTAGLI E TESTO LEGALE INVARIATI] */
+        .detail-block {
+            position: absolute;
+            bottom: 8mm; 
+            text-align: left;
+            font-size: 10pt;
+            line-height: 1.0;
+            color: #555;
+            left: 100mm;
+            font-family: 'open-sans', serif;
+            margin-left: -5mm;
+        }
+        .detail-line-item {
+            margin-bottom: 2mm; /* Spazio tra le righe di dettaglio */
+        }
+        .bottom-right-text {
+            position: absolute;
+            right: 13mm; 
+            bottom: 8mm;
+            width: 120mm;
+            font-size: 5pt; 
+            text-align: right; 
+            color: #555; 
+            line-height: 1.2;
+            font-family: 'open-sans', serif; 
+        }
+        .legal-text-block-right {
+             position: absolute;
+             top: 373mm;
+             right: -6mm;
+             width: 100mm;
+             text-align: left;
+             font-size: 10pt;
+             color: #555;
+             line-height: 0.8;
+             font-family: 'open-sans', serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="testi">
+        <div class="logo-area">
+            {% if logo1 %}
+                <img src="/static/imglib/{{ logo1 }}" alt="Logo 1" class="logo-img">
+            {% endif %}
+            {% if logo2 %}
+                <img src="/static/imglib/{{ logo2 }}" alt="Logo 2" class="logo-img">
+            {% endif %}
+            {% if logo3 %}
+                <img src="/static/imglib/{{ logo3 }}" alt="Logo 3" class="logo-img">
+            {% endif %}
+        </div>
+        <div class="content-area">
+            <p class="header-repubblica">Repubblica Italiana</p>
+            <p class="header-text">In nome della legge</p>
+            <p class="header-text">la Rettrice della</p>
+            <p class="header-sapienza">Sapienza Università di Roma</p>
+            <p class="header-conferisce">conferisce la Laurea in</p>
+
+            <p class="field corso-laurea">{{ corsolau | safe }}</p>
+
+            {% if lode == 'LODE' %}
+                <p class="field con-lode">CON LODE</p>
+            {% endif %}
+
+            <p class="field nome-studente">
+                <span class="intro-nome">
+                    {% set first_letter = nom_cog|string|trim|upper|first %}
+                    {% if first_letter in ['A', 'E', 'I', 'O', 'U'] %}
+                        ad 
+                    {% else %}
+                        a 
+                    {% endif %}
+                </span>
+                {{ nom_cog | safe}}
+            </p>
+            <p class="field dettagli-nascita">{{ sesso }} {{ luogonas }} il {{ datanas }}</p>
+
+        </div>
+        <div class="signature-area">
+            
+            <div class="signature-column"> <!--style="margin-right: 20mm;"-->
+                <div class="signature-block">
+                    {% if 'F_' in firmar %}
+                    <p class="signature-title">La Rettrice</p>
+                    {%else%}
+                    <p class="signature-title">Il Rettore</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    <img src="/static/imglib/{{ firmar }}" alt="Firma Rettore" class="firma-img">
+                </div>
+                
+                <div class="signature-block">
+                    {% if 'F_' in firmad %}
+                    <p class="signature-title">La Direttrice Generale</p>
+                    {%else%}
+                    <p class="signature-title">Il Direttore Generale</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    <img src="/static/imglib/{{ firmad }}" alt="Firma Direttore" class="firma-img">
+                </div>
+                
+                <div class="signature-block">
+                    {% if 'F_' in firma4 %}
+                    <p class="signature-title">La Preside di Facoltà</p>
+                    {%else%}
+                    <p class="signature-title">Il Preside di Facoltà</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    <img src="/static/imglib/{{ firma4 }}" alt="Firma Preside" class="firma-img">
+                </div>
+
+            </div>
+
+            <div class="signature-column" style="margin-left: -17mm;" > <!--style="margin-left: 20mm;"-->
+
+                <div class="signature-block">
+                    {% if 'F_' in firmap %}
+                    <p class="signature-title">La Presidente</p>
+                    {%else%}
+                    <p class="signature-title">Il Presidente</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    {% if firmap %}
+                        <img src="/static/imglib/{{ firmap }}" alt="Firma 4" class="firma-img">
+                    {% endif %}
+                </div>
+
+                <div class="signature-block" style="margin-top:27px;">
+                    {% if 'F_' in firma5 %}
+                    <p class="signature-title">La Decana</p>
+                    {%else%}
+                    <p class="signature-title">Il Decano</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    {% if firma5 %}
+                        <img src="/static/imglib/{{ firma5 }}" alt="Firma 5" class="firma-img">
+                    {% endif %}
+                </div>
+
+                <div class="signature-block" style="margin-top:10px;">
+                    {% if 'F_' in firma6 %}
+                    <p class="signature-title">La Segretaria</p>
+                    {%else%}
+                    <p class="signature-title">Il Segretario</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    {% if firma6 %}
+                        <img src="/static/imglib/{{ firma6 }}" alt="Firma 6" class="firma-img">
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        <div class="detail-block">
+            <p class="detail-line-item">conferito a Roma il <b> {{ datalaur }}</b></p>
+            <p class="detail-line-item">numero di matricola <b> {{ matri }}</b></p>
+            <p class="detail-line-item">numero di protocollo <b> {{ protocol }}</b></p>
+            <p class="detail-line-item">dato in Roma il <b> {{ datastamp }}</b></p>
+            <p class="detail-line-item">numero di serie </p>
+        </div>
+
+        <div class="legal-text-block-right">
+            <p>Diploma rilasciato a tutti gli effetti di legge</p>
+            <p>visti gli attestati degli studi compiuti</p>
+            <p>e visto il risultato dell'esame di laurea magistrale</p>
+            <p>superato in questa Università</p>
+        </div>
+
+        <p class="bottom-right-text">{{ testo_footer_fisso }}</p>
+    </div>
+
+</body>
+</html>

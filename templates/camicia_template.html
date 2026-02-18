@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camicia Diploma</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+           /* margin: 0;
+            padding: 1cm 1cm;  Spazi per simulare i margini di un documento stampato */
+            font-size: 12pt;
+            /*line-height: 1;
+            box-sizing: border-box;*/
+            background-color: white; /* Assicura uno sfondo bianco per la stampa */
+            color: black;
+        }
+
+        /*.header-top {
+            text-align: right;
+            margin-bottom: 1em;
+            font-size: 10pt;
+        }*/
+
+        .university-header {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        /*.university-header img {
+            max-width: 150px;  Spazio per un logo se necessario 
+            margin-bottom: 1em;
+        }*/
+        .university-header h2 {
+            margin: 0;
+            font-size: 18pt;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 0.5em;
+            font-size: 12pt;
+            font-weight: regular;
+        }
+
+        .main-content {
+            font-size: 12pt;
+            /*line-height: 1;*/
+            margin-bottom: 1em;
+        }
+
+        /*.main-content p {
+            margin-bottom: 0.5em;
+        }*/
+
+        .variable-data {
+            font-weight: bold;
+            font-size: 12pt;
+            /*text-decoration: underline;*/
+        }
+
+        .signature-block {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1em;
+            font-size: 11pt;
+            text-align: center;
+        }
+        .signature-block div {
+            flex: 1;
+            margin: 0 1em;
+        }
+        .signature-block .signature-line {
+            /*border-top: 1px solid black;*/
+            padding-top: 0.5em;
+            margin-top: 1em;
+        }
+        .footer-info {
+            margin-top: 1em;
+            font-size: 10pt;
+            text-align: justify;
+        }
+
+        .withdrawal-section {
+            margin-top: 1em;
+            /*border: 1px solid black;
+            padding: 0.5em;*/
+            font-size: 11pt;
+            line-height: 1;
+        }
+        .withdrawal-section h3 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1em;
+            font-size: 12pt;
+        }
+        .withdrawal-section .field-row {
+            display: flex;
+            margin-bottom: 0.5em;
+        }
+        .withdrawal-section .field-row label {
+            min-width: 120px;
+            font-weight: regular;
+            flex-shrink: 0;
+        }
+        .withdrawal-section .field-row span.underline {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            margin-left: -4em;
+        }
+        .withdrawal-section .field-row span.underline-identificato {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            margin-left: -0.1em;
+        }
+        .withdrawal-section .field-row span.underline-rilasciato {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            margin-left: -3em;
+        }
+        .withdrawal-section .field-row span.underline-nome {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            margin-left: -5.5em;
+        }
+        .withdrawal-section .field-row span.underline-natoa {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            margin-left: -4.5em;
+        }
+        .delegation-section {
+            margin-top: 1em;
+            font-size: 11pt;
+            line-height: 1;
+        }
+        .delegation-section .field-row {
+            display: flex;
+            margin-bottom: 0.5em;
+        }
+        .delegation-section .field-row label {
+            min-width: 150px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .delegation-section .field-row span.underline {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            /*margin-left: 0.5em;*/
+        }
+        .delegation-section .field-row span.underline-di {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            margin-left: -9em;
+        }
+        .delegation-section .field-row span.underline-indata {
+            flex-grow: 1;
+            border-bottom: 1px solid black;
+            margin-left: -7em;
+        }
+        .signature-final {
+            margin-top: 3em;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11pt;
+            text-align: center;
+        }
+        .signature-final div {
+            flex: 1;
+            margin: 0 1em;
+            text-align: center;
+        }
+        .signature-final .romali {
+            flex: 1;
+            margin: 0 1em;
+            text-align: left;
+            margin-left: -1px;
+        }
+        .signature-final .signature-line-bottom {
+            border-top: 1px solid black;
+            padding-top: 0.5em;
+            margin-top: 0.5em; /* Spazio per la firma */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="university-header">
+        <h2>SAPIENZA UNIVERSITÀ DI ROMA</h2>
+    </div>
+
+    <div class="title-section">
+        <p>REPUBBLICA ITALIANA</p>
+        <p>IN NOME DELLA LEGGE LA RETTRICE DELLA SAPIENZA UNIVERSITÀ DI ROMA</p>
+        <p>CONFERISCE LA LAUREA IN</p>
+        <p><span class="variable-data">{{ corso_laurea | safe }}</span></p>
+       <p>{{ classe_laurea_dinamica }}</p>
+        <p>A <span class="variable-data" style="font-size: 14pt;">{{ nome_studente }}</span></p>
+        <!--<p>nato a <span class="variable-data">{{ luogo_nascita }}</span> (<span class="variable-data">{{ provincia_nascita }}</span>) il <span class="variable-data">{{ data_nascita }}</span></p>-->
+        <!--<p>{{ genere_nato_nata }} {{ luogo_nascita }}{% if provincia_nascita %} ({{ provincia_nascita }}){% endif %} il {{ data_nascita }}</p>-->
+        <p>{{ genere_nato_nata }} {{ luogo_nascita }} il {{ data_nascita }}</p>
+    </div>
+
+    <div class="signature-block">
+        <div class="signature-column"">
+            <p class="text-bold">LA DIRETTRICE GENERALE</p>
+            <div class="signature-line">
+                {% if firmad %}
+                <img src="/static/imglib/{{ firmad }}" alt="Firma Direttrice Generale" style="max-height: 50px; margin-top: -20px;">
+                {% endif %}
+            </div>
+        </div>
+        <div class="signature-column" style="margin-left: 80px;">
+            <p class="text-bold">LA RETTRICE</p>
+            <div class="signature-line">
+                {% if firmar %}
+                <!--<img src="{{ url_for('static', filename=firmar) }}" alt="Firma Rettrice" style="max-height: 30px; margin-top: -60px;">-->
+                <img src="/static/imglib/{{ firmar }}" alt="Firma Rettrice" style="max-height: 30px; margin-top: -60px;">
+                {% endif %}
+            </div>
+        </div>
+        <div class="signature-column">
+            <p class="text-bold">IL PRESIDE DI FACOLTÀ</p>
+            <div class="signature-line">
+                {% if firmap %}
+                <img src="/static/imglib/{{ firmap }}" alt="Firma Preside di Facoltà" style="max-height: 50px; margin-top: -20px; z-index: -1;">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content" style="margin-top: 1em;">
+        <p>DATA DI STAMPA <span class="variable-data">{{ data_stampa }}</span></p>
+        <p>N. DI PROTOCOLLO <span class="variable-data">{{ numero_protocollo }}</span></p>
+        <p>DATO IN ROMA IL <span class="variable-data">{{ data_rilascio }}</span></p>
+        <p>Il presente diploma viene rilasciato a tutti gli effetti di legge, visti gli attestati degli studi compiuti e visto il risultato dell'esame di laurea superato in questa Università.</p>
+    </div>
+
+    <div class="withdrawal-section">
+        <h3>IL DIPLOMA ORIGINARIO DI LAUREA VIENE RITIRATO DA:</h3>
+        <div class="field-row">
+            <label>Cognome</label><span class="underline"></span>
+        </div>
+        <div class="field-row">
+            <label>Nome</label><span class="underline-nome"></span>
+        </div>
+        <div class="field-row">
+            <label>Nato/a a</label><span class="underline-natoa"></span>
+            <label>(Prov.) il</label><span class="underline"></span>
+        </div>
+        <div class="field-row">
+            <label>Identificato a mezzo documento di riconoscimento</label><span class="underline-identificato"></span>
+        </div>
+        <div class="field-row">
+            <label>Rilasciato da</label><span class="underline-rilasciato"></span>
+            <label>n.</label><span class="underline" style="margin-left: -7.5em;"></span>
+            <label>il</label><span class="underline" style="margin-left: -7.5em;"></span>
+        </div>
+        <div class="field-row">
+            <label>Diploma n.:</label><span class="variable-data">{{ numero_diploma }}</span>
+        </div>
+    </div>
+
+    <div class="delegation-section">
+        <p>ESTREMI DELLA DELEGA (nel caso che il diploma venga ritirato da persona indicata dallo studente):</p>
+        <div class="field-row">
+            <label>Delega effettuata presso</label><span class="underline"></span>
+        </div>
+        <div class="field-row" style="margin-left: 250px;">
+            <label>(notaio, cancelliere, segretario comunale, ecc.)</label>
+        </div>
+        <div class="field-row">
+            <label>in data</label><span class="underline-indata"></span>
+        </div>
+        <div class="field-row">
+            <label>Di</label><span class="underline-di"></span>
+        </div>
+    </div>
+
+    <div class="signature-final">
+        <div class="romali">
+        Roma, li <!--<span class="underline" style="min-width: 100px;"></span>-->
+        </div>
+        <div>
+            <div class="signature-line-bottom"></div>
+            Firma leggibile di colui che ritira il diploma
+        </div>
+        <div>
+            <div class="signature-line-bottom"></div>
+            Firma leggibile di colui che ritira il diploma
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+    repubblica_italiana=Repubblica Italiana
+    in_nome_legge=In nome della legge
+    la_rettrice_della=la Rettrice della
+    sapienza_universita=Sapienza Università di Roma
+    conferisce_laurea=conferisce la Laurea in
+    firma_rettrice=La Rettrice
+    firma_direttrice=La Direttrice Generale
+    firma_preside=Il Preside di Facoltà

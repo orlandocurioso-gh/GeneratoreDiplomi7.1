@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diploma di Laurea Sapienza</title>
+    <style>
+        @font-face {
+        font-family: 'Sapienza';
+        src: url('/static/font//Sapienza/Sapienza-Regular.otf') format('opentype');
+        font-weight: normal; /* Aggiungi questa linea per chiarezza */
+        }
+
+        /* Regola per la versione grassetto */
+        @font-face {
+            font-family: 'Sapienza';
+            src: url('/static/font/Sapienza/Sapienza-Bold.otf') format('opentype');
+            font-weight: bold; /* CRUCIALE: Questo collega il file alla variante 'bold' */
+        }
+
+        @font-face {
+            font-family: 'open-sans';
+            src: url('/static/font/open-sans/OpenSans-Regular.ttf') format('truetype');
+            font-weight: regular; 
+        }
+
+        @font-face {
+            font-family: 'open-sans';
+            src: url('/static/font/open-sans/OpenSans-Bold.ttf') format('truetype');
+            font-weight: bold; 
+        }
+
+        @page {
+            size: A3 portrait; /* Formato A3 verticale */
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Sapienza', serif;
+            font-variant: small-caps;
+            margin: 0;
+            padding: 0;
+            width: 297mm; /* Larghezza A3 */
+            height: 420mm; /* Altezza A3 */
+            position: relative;
+            overflow: hidden;
+            /* Nessuna immagine di sfondo qui */
+            color: #333;
+            box-sizing: border-box;
+            line-height: 1.3;
+        }
+        .testi {
+            position: absolute; /* Permette il posizionamento degli elementi figli */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin-left: 11mm;
+        }
+        /* Area generale per i contenuti testuali centrali */
+        .content-area {
+            position: absolute; /* Permette il posizionamento degli elementi figli */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Occupa l'intera pagina */
+            /* Regola il padding per controllare la distanza dal bordo sinistro della pagina. */
+            padding: 20mm 25mm 20mm 95mm; /* DA CALIBRARE: Il quarto valore (40mm) è il padding-left. Diminuiscilo per spostare il testo ancora più a sinistra, aumentalo per spostarlo a destra. */
+            box-sizing: border-box;
+            text-align: left; /* MODIFICATO: Allinea tutto il testo interno a sinistra */
+            color: #333;
+            line-height: 1.3;
+        }
+        /* Stili per il testo dell'intestazione (Repubblica, Legge, Sapienza) */
+        .header-repubblica {
+            font-size: 31pt;
+            /*font-weight: bold;*/
+            margin-bottom: 30mm;  /*Spazio sotto ogni riga*/
+            letter-spacing: 0.8;
+            color: #822433;
+            line-height: 1.1;
+        }
+        .header-text {
+            font-size: 27pt;
+            /*font-weight: bold;*/
+            margin-bottom: 3mm; /* MODIFICATO: Rimuove lo spazio sotto le righe header-text */
+            letter-spacing: 0.7px;
+            margin-top: 3mm; /* AGGIUNTO: Assicura che non ci sia spazio sopra */
+            line-height: 1.1;         
+        }
+        .header-sapienza {
+            font-size: 27pt;
+            /*font-weight: bold;*/
+            color: #822433;
+            margin-top: 3mm; /* MODIFICATO: Rimuove lo spazio sopra */
+            margin-bottom: 3mm; /* MODIFICATO: Rimuove lo spazio sotto */
+            line-height: 1.1;
+        }
+        .header-conferisce {
+            font-size: 27pt;
+            margin-top: 3mm; /* MODIFICATO: Rimuove lo spazio sopra */
+            line-height: 1.1;
+        }
+        
+        /* Stili per i campi dinamici (studente, corso) */
+        .field {
+            text-align: left; /* MODIFICATO: Allinea specificamente questi campi a sinistra */
+            white-space: normal; /* RIPRISTINATO: Permette al testo di andare a capo se necessario. */
+            /*border: 2px solid blue;*/
+        }
+        .nome-studente {
+            font-size: 30pt;
+            font-weight: bold;
+            color: #822433; /* Rosso Sapienza */
+            margin-top: 15mm; /* Spazio sopra */
+            margin-bottom: 0.5mm; /* Spazio sotto */
+        }
+        .nome-studente .intro-nome {
+            font-size: 20pt;
+            /*font-weight: bold;*/
+            color: #000000;
+            margin-top: 15mm; /* Spazio sopra */
+            margin-bottom: 0.5mm; /* Spazio sotto */
+        }
+        .dettagli-nascita {
+            font-size: 12pt;
+            margin-top:0.5mm;
+            margin-bottom: 20mm; /* Spazio prima del blocco successivo */
+            font-weight: regular;
+            font-family: 'open-sans', sans-serif; /* AGGIUNTO: Imposta il font Arial con un fallback */
+        }
+        .corso-laurea {
+            font-size: 26pt;
+            font-weight: bold;
+            line-height: 1.5;
+            margin-top: 20mm;
+            margin-bottom: 3mm;
+        }
+        .classe-laurea {
+            font-size: 10pt;
+            margin-top: 3mm;
+            margin-bottom: 6mm;
+            font-weight: regular;
+            font-family: 'open-sans', sans-serif; /* AGGIUNTO: Imposta il font Arial con un fallback */
+            line-height: 2;
+        }
+        .con-lode {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #8B4513; /* Colore per "CON LODE" */
+            margin-top: 5mm;
+        }
+        /* Area Firme e Nomi */
+        .signature-area {
+            position: absolute;
+            width: 80%; /* Calibra questa larghezza. Se è troppo piccola, potrebbe limitare lo spostamento. */
+            left: 50%;
+            transform: translateX(-50%); /* Questo centra l'intera area firme sulla pagina */
+            bottom: 60mm; /* Calibra la distanza dal fondo della pagina A3 */
+            display: flex;
+            flex-direction: column; /* Impila i blocchi verticalmente */
+            align-items: flex-start; /* CRUCIALE: Questo allinea tutti i figli (incluso il blocco della Rettrice) a sinistra del .signature-area */
+            font-size: 12pt;
+        }
+        .signature-block {
+            /* Mantieni queste proprietà per i singoli blocchi firma */
+            flex: 1;
+            padding: 0 5mm;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* IMPORTANTE: Mantiene il contenuto (titolo, linea, immagine, nome) centrato all'interno di OGNI singolo blocco firma */
+        }
+        .signature-rector {
+            margin-bottom: 15mm; /* Spazio sotto la firma Rettrice */
+            width: 100%; /* Assicura che si estenda per centrare il suo contenuto interno */
+            /* align-self: flex-start;  Questa regola non è più necessaria qui se align-items: flex-start è sul genitore */
+            /* Se vuoi spostare ulteriormente a sinistra l'intero blocco Rettrice, puoi aggiungere un margin-left negativo qui. Esempio: */
+            margin-left: -30mm; /* DA CALIBRARE: Sposta il blocco della Rettrice ancora più a sinistra */
+        }
+        .signature-preside {
+            /* La regola `flex` ci dà controllo sull'allineamento del singolo blocco */
+            flex-grow: 1; /* Permette al blocco di occupare lo spazio disponibile */
+            text-align: right; /* Allinea il testo e l'immagine all'interno del blocco a destra */
+            transform: translateX(-22mm); /* DA CALIBRARE: Sposta il blocco verso sinistra. Prova con -20mm, -30mm, ecc. */
+            /*border: 2px solid black;*/
+            margin-right: 40px;
+        }
+        .signature-dg {
+            /* La regola `flex` ci dà controllo sull'allineamento del singolo blocco */
+            flex-grow: 1; /* Permette al blocco di occupare lo spazio disponibile */
+            text-align: right; /* Allinea il testo e l'immagine all'interno del blocco a destra */
+            transform: translateX(-22mm); /* DA CALIBRARE: Sposta il blocco verso sinistra. Prova con -20mm, -30mm, ecc. */
+            /*border: 2px solid blue;*/
+            margin-left: 95px;
+        }
+        .signature-bottom-row {
+            display: flex;
+            justify-content: space-between; /* CRUCIALE: Ripristina questa regola per separare i due blocchi */
+            width: 100%;
+            margin-left: 43mm; /* Mantieni questo per allineare l'intera riga a sinistra */
+        }
+        /* Mantieni il resto degli stili invariato */
+        .signature-title {
+            margin-left: -6mm;
+            margin-bottom: 5mm;
+            text-align: center;
+            font-size: 15pt;
+        }
+        .signature-title-rector {
+            text-align: left; /* Allinea il testo a sinistra */
+            width: 100%; /* Assicura che il blocco si estenda per l'allineamento */
+            margin-left: 180mm;
+            font-size: 15pt;
+        }
+        .signature-line {
+            width: 100px;
+            height: 1px;
+            /*background-color: black;*/
+            margin-bottom: 5mm;
+        }
+        .firma-img {
+            width: 300px; /* CAMBIATO: Prova con una larghezza fissa, non max-width */
+            height: auto;
+            /*border: 2px solid blue;  AGGIUNTO: Aggiungiamo un bordo per vedere se lo stile viene applicato */
+            display: block;
+            margin: 0 auto;
+            margin-top: -60px; /*Distanza tra titolo e immagine firma*/
+            margin-bottom: 5px;
+            z-index: 1;
+        }
+        .firma-img-rector {
+            width: 300px; /* CAMBIATO: Prova con una larghezza fissa, non max-width */
+            height: auto;
+            /*border: 2px solid blue;  AGGIUNTO: Aggiungiamo un bordo per vedere se lo stile viene applicato */
+            display: block;
+            margin-left: 90mm;
+            margin-top: -30px;
+            margin-bottom: 5px;
+            z-index: 1;
+        }
+        .signer-name {
+            font-weight: bold;
+            margin-top: 5mm;
+            text-align: center;
+        }
+        /* Blocco Dettagli Footer (Matricola, Protocollo, Date, etc.) */
+        .detail-block {
+            position: absolute;
+            bottom: 8mm; /* DA CALIBRARE: Distanza dal fondo della pagina A3 */
+            text-align: left;
+            font-size: 10pt;
+            line-height: 1.0;
+            color: #555;
+            left: 100mm; /* DA CALIBRARE: Aumentato per spostare a destra */
+            font-family: 'open-sans', serif; /* Esempio: aggiungi la stessa font-family */
+            margin-left: -5mm;
+        }
+        .detail-line-item {
+            margin-bottom: 2mm; /* Spazio tra le righe di dettaglio */
+        }
+
+        /* Blocco Testo Legale Fisso in basso a destra (di fronte al blocco dettagli) */
+        .legal-text-block-right {
+            position: absolute;
+            top: 376mm;
+            right: 1mm; /* DA CALIBRARE: Spostamento a destra dal bordo destro della pagina */
+            width: 100mm;
+            text-align: left;
+            font-size: 10pt;
+            color: #555;
+            line-height: 0.8;
+            font-family: 'open-sans', serif; /* Esempio: aggiungi la stessa font-family */
+            /* Assicurati che NON ci siano proprietà 'left' per questo blocco */
+        }
+        /* Stile per il testo fisso in basso a destra (es. imposta di bollo) */
+        .bottom-right-text {
+            position: absolute;
+            right: 20mm; /* DA CALIBRARE: Distanza dal bordo destro della pagina. Prova a allinearlo con il blocco "legal-text-block-right". */
+            bottom: 8mm; /* DA CALIBRARE: Distanza dal fondo della pagina A3. È un testo di "footer" quindi molto in basso. */
+            width: 120mm; /* DA CALIBRARE: Larghezza del blocco di testo. Se il testo non va a capo come desiderato, regola questa larghezza. */
+            font-size: 5pt; /* Font molto piccolo come da tua indicazione e riferimento PDF */
+            text-align: right; /* Allinea il testo a destra all'interno del suo blocco */
+            color: #555; /* Un grigio scuro per renderlo meno invadente, come nel PDF */
+            font-family: 'open-sans', serif;
+            line-height: 1.2; /* Spaziatura tra le righe */
+        }
+    </style>
+</head>
+<body>
+    <div class="testi">
+        <div class="content-area">
+            <p class="header-repubblica">Repubblica Italiana</p>
+            <p class="header-text">In nome della legge</p>
+            <p class="header-text">la Rettrice della</p>
+            <p class="header-sapienza">Sapienza Università di Roma</p>
+            <p class="header-conferisce">conferisce la Laurea Magistrale<br>a ciclo unico in</p>
+
+            <p class="field corso-laurea">{{ corsolau | safe }}</p>
+            <!--<p class="field classe-laurea">{{ classe }}<br> ({{ indicorso }})</p>-->
+            <p class="field classe-laurea">{{ indicorso }}(DM 270/2004)<br> {{ classe }}</p>
+
+            {% if lode == 'LODE' %}
+                <p class="field con-lode">CON LODE</p>
+            {% endif %}
+
+            <p class="field nome-studente"><span class="intro-nome">A </span>{{ nom_cog }}</p>
+            <p class="field dettagli-nascita">{{ sesso }} {{ luogonas }} il {{ datanas }}</p>
+
+        </div>
+
+        <div class="signature-area">
+
+            <div class="signature-block signature-rector">
+                {% if 'F_' in firmar %}
+                <p class="signature-title signature-title-rector">la Rettrice</p>
+                {%else%}
+                <p class="signature-title signature-title-rector">il Rettore</p>
+                {% endif %}
+                <div class="signature-line"></div>
+                <img src="/static/imglib/{{ firmar }}" alt="Firma Rettrice" class="firma-img-rector">
+             <!--<p class="signer-name">{{ firmar }}</p>-->
+            </div>
+            <div class="signature-bottom-row">
+                <div class="signature-block signature-dg">
+                    {% if 'F_' in firmad %}
+                    <p class="signature-title">la Direttrice Generale</p>
+                    {%else%}
+                    <p class="signature-title">il Direttore Generale</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    <img src="/static/imglib/{{ firmad }}" alt="Firma Direttrice Generale" class="firma-img">
+                    <!--<p class="signer-name">{{ firmad }}</p> -->
+                </div>
+                <div class="signature-block signature-preside">
+                    {% if 'F_' in firmap %}
+                    <p class="signature-title">la Preside di Facoltà</p>
+                    {%else%}
+                    <p class="signature-title">il Preside di Facoltà</p>
+                    {% endif %}
+                    <div class="signature-line"></div>
+                    <img src="/static/imglib/{{ firmap }}" alt="Firma Preside" class="firma-img">
+                    <!--<p class="signer-name">{{ firmap }}</p>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-block">
+            <p class="detail-line-item">conferito a Roma il <b> {{ datalaur }}</b></p>
+            <p class="detail-line-item">numero di matricola <b> {{ matri }}</b></p>
+            <p class="detail-line-item">numero di protocollo <b> {{ protocol }}</b></p>
+            <p class="detail-line-item">dato in Roma il <b> {{ datastamp }}</b></p>
+            <p class="detail-line-item">numero di serie <!--<b> {{ npergamena }}</b>--></p>
+        </div>
+
+        <div class="legal-text-block-right">
+            <p>Diploma rilasciato a tutti gli effetti di legge</p>
+            <p>visti gli attestati degli studi compiuti</p>
+            <p>e visto il risultato dell'esame di laurea magistrale</p>
+            <p>superato in questa Università</p>
+        </div>
+
+        <p class="bottom-right-text">{{ testo_footer_fisso }}</p>
+    </div>
+
+</body>
+</html>

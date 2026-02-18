@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.arsmundi.de%2Fmedia%2Fa8%2F81%2F91%2F1619630770%2F146840_1.jpg&f=1&nofb=1&ipt=cc99edfe12daf2adf31abebe410c9316893f0e51fe21f583d70866d38d1ec24e" >
+    
+    <title>TutanC'mon</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f9; }
+        h1 { color: #333; }
+        .container { 
+            max-width: 500px; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        form { margin-top: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        select, input[type="file"] { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-sizing: border-box; /* Assicura che il padding non sballi la larghezza */
+        }
+        input[type="submit"] {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generatore Diplomi</h1>
+        <p>Seleziona i parametri per iniziare la generazione.</p>
+        
+        <form action="/upload-data" method="post" enctype="multipart/form-data">
+            
+            <label for="facolta_selezionata">Facoltà / Corso:</label>
+            <select name="facolta_selezionata" id="facolta_selezionata" required>
+                <option value="" disabled selected>-- Scegli la Facoltà --</option>
+                <option value="INGAER">SCUOLA DI INGEGNERIA AEROSPAZIALE</option>
+                <option value="GIUR">GIURISPRUDENZA</option>
+                <option value="ECON">ECONOMIA</option>
+                <option value="SMFN">SCIENZE MATEMATICHE, FISICHE E NATURALI</option>
+                <option value="LETFIL">LETTERE E FILOSOFIA</option>
+                <option value="ARCH">ARCHITETTURA</option>
+                <option value="FARMED">FARMACIA E MEDICINA</option>
+                <option value="ICI">INGEGNERIA CIVILE E INDUSTRIALE</option>
+                <option value="I3S">INGEGNERIA DELL'INFORMAZIONE, INFORMATICA E STATISTICA</option>
+                <option value="MEDODO">MEDICINA E ODONTOIATRIA</option>
+                <option value="MEDPSI">MEDICINA E PSICOLOGIA</option>
+                <option value="SPSC">SCIENZE POLITICHE, SOCIOLOGIA, COMUNICAZIONE</option>
+                <option value="SPSC">DOTTORATO</option>
+            </select>
+
+            <label for="data_file">File Dati (TXT):</label>
+            <input type="file" name="data_file" id="data_file" accept=".txt" required>
+            
+            <input type="submit" value="Genera PDF e Anteprima">
+        </form>
+    </div>
+</body>
+</html>
